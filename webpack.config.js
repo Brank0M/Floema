@@ -40,7 +40,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Extracts CSS into separate files
       filename: "[name].css",
-      // chunkFilename: "[id].css",
+      chunkFilename: "[id].css",
     }),
     new ImageMinimizerPlugin({
       // Minifies images
@@ -88,12 +88,17 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif|jpe?g|svg|woff2?|fnt|webp|mp4)$/, // replaced with bottom comment
+        test: /\.(png|jpg|gif|jpe?g|svg|woff2?|fnt|webp|mp4)$/i, // replaced with bottom comment
         type: 'asset/resource',
+        // type: 'file-loader',
         generator: {
           filename: '[name].[hash].[ext]',
         },
       },
+      // {
+      // test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      // type: "asset/inline",
+      // },
       // {
       //   test: /\.(jpe?g|png|gif|svg|woff|woff2|fnt|webp)$/i, // This section commented is not working properly, it has to be fixed
       //   loader: "file-loader",
@@ -127,6 +132,7 @@ module.exports = {
       {
         test: /\.(glsl|frag|vert)$/, // Loads GLSL files
         type: "asset/source", // replaced - loader: "raw-loader",
+        // type: "raw-loader", 
         exclude: /node_modules/,
       },
       {

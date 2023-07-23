@@ -1,7 +1,7 @@
 extends ../index.pug
 
 block variables 
-    - var title = 'Detail'
+    - var title = 'detail'
 
 block content
     .detail 
@@ -22,7 +22,7 @@ block content
                             svg.detail_information_highlight_icon
                                 use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
 
-                            .detail_information_highlights_text=highlight.highlights_text
+                            span.detail_information_highlights_text!=highlight.highlights_text.replace(/\n/, '<br>')
                         
                 .detail_information_list 
                     each item in product.data.informations

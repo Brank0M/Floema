@@ -7,8 +7,8 @@ block content
     .collections
         .collections_wrapper
         .collections_titles 
-            each collection, index  in collections 
-                .collections_title_label=`${home.data.collection} ${Numbers(index)}`
+            each collection, index in collections 
+                .collections_title_label!=`${home.data.collection} ${Numbers(index)}`
                 .collections_titles_title=collection.data.title
 
             .collections_gallery 
