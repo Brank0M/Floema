@@ -5,19 +5,35 @@
 }
 
 html {
-    font-size: calc(100vw / 1920px * 15px);
+    font-size: calc(100vw / 1920px * 10px);
+    line-height: 1;
+
+    @include media('<phone') {
+        font-size: calc(100vw / 750px * 10px);
+    }
 }
 
 body {
     @extend %description-16;
     font-family: $font-suisse-bp;
-    @include media ('<phone') {
-        font-size: 16px;
-    }
+
 }
 
 a {
     color: inherit;
     outline: none;
     text-decoration: none;
+}
+
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+img {
+    vertical-align: middle;
+    
 }

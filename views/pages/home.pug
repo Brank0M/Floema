@@ -8,8 +8,8 @@ block content
         .home_wrapper 
             .home_titles 
                 each collection, index in collections 
-                    .home_titles_label=`${home.data.collection} ${Numbers(index)}`
-                    .home_titles_title=collection.data.title
+                    .home_title_label=`${home.data.collection} ${Numbers(index)}`
+                    .home_title_title=collection.data.title
         
             .home_gallery 
                 each media in home.data.gallery 
@@ -17,3 +17,5 @@ block content
                         img.home_gallery_media_image(src=media.image.url alt=media.image.media)
 
             a.home_link(href=Link(home.data.collections))=home.data.button
+                svg.home_link_icon(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 60")
+                    path(stroke="currentColor" opacity="0.4" fill="none" d="M144,0.5c79.25,0,143.5,13.21,143.5,29.5S223.25,59.5,144,59.5S0.5,46.29,0.5,30S64.75,0.5,144,0.5z")

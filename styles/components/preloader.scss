@@ -3,10 +3,10 @@
     @extend %cover;
 
     display: none;
-    // display: flex;
     background: $color-contessa;
-    color: $color-white;
-    text-align: center;
+    color: $color-quarter-spanish-white;
+    text-align: center; 
+    z-index: z('reloader');
 
 }
 
@@ -21,4 +21,8 @@
     bottom: 7.3rem;
     left: 50%;
     transform: translateX(-50%);
+
+    @include media('<phone') {
+        font-size: 2.4rem;
+    }
 }

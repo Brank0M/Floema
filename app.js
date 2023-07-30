@@ -2,28 +2,28 @@ require("dotenv").config();
 
 // console.log(process.env.PRISMIC_ENDPOINT, process.env.PRISMIC_CLIENT_ID);
 
-const fetch = require("node-fetch");
-const express = require("express");
-const path = require("path");
-const errorHandler = require("errorhandler");
-const bodyParser = require("body-parser");
-const logger = require("morgan");
-const methodOverride = require("method-override");
+const fetch = require('node-fetch');
+const express = require('express');
+const path = require('path');
+const errorHandler = require('errorhandler');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const methodOverride = require('method-override');
 
 const app = express();
 const port = 8005;
 
-const Prismic = require("@prismicio/client");
-const PrismicH = require("@prismicio/helpers");
-const { application } = require("express");
-const UAParser = require("ua-parser-js");
+const Prismic = require('@prismicio/client');
+const PrismicH = require('@prismicio/helpers');
+const { application } = require('express');
+const UAParser = require('ua-parser-js');
 
-app.use(logger("dev")); // Log requests to the console
+app.use(logger('dev')); // Log requests to the console
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({ extended: false })); // extended: false - does not allow nested objects in query strings
 app.use(errorHandler()); 
 app.use(methodOverride());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // // Initialize the prismic.io api
 // const initApi = (req) => {
@@ -180,7 +180,7 @@ const initApi = (req) => {
     req,
     fetch,
   })
-}
+};
 
 // Link Resolver, set http address directions
 const HandleLinkResolver = (doc) => {
@@ -196,7 +196,7 @@ const HandleLinkResolver = (doc) => {
   }
   // Default to homepage
   return '/'
-}
+};
 
 // Middleware to inject prismic context
 app.use((req, res, next) => {
@@ -216,7 +216,7 @@ app.use((req, res, next) => {
   //console.log(res.locals.Link);
 
   next()
-})
+});
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
@@ -276,7 +276,7 @@ const handleRequest = async (api) => {
     navigation,
     preloader,
   }
-}
+};
 
 app.get('/', async (req, res) => {
   const api = await initApi(req)
@@ -287,7 +287,7 @@ app.get('/', async (req, res) => {
   res.render('pages/home', {
     ...defaults,
   })
-})
+});
 
 app.get('/about', async (req, res) => {
   const api = await initApi(req)
@@ -296,16 +296,18 @@ app.get('/about', async (req, res) => {
   res.render('pages/about', {
     ...defaults,
   })
-})
+});
 
 app.get('/collections', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
 
+  console.log(defaults.collections[0].data.products[0]);
+
   res.render('pages/collections', {
     ...defaults,
   })
-})
+});
 
 app.get('/detail/:uid', async (req, res) => {
   const api = await initApi(req)
@@ -319,11 +321,7 @@ app.get('/detail/:uid', async (req, res) => {
     ...defaults,
     product,
   })
-
-  // console.log(product, product.data.highlights[0]);
-  // console.log(product.data.highlights[0].text);
-  // console.log(product.data.highlights[0].image.url);
-})
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

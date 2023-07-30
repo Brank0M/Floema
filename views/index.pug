@@ -8,15 +8,9 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
         title=meta.data.title
-        | Floema
-
-
 
         meta(name="description" content=meta.data.description)
         
-        //- style
-        //-     include ../public/main.css   
-
         base(href="/")
     <!-- Favicon -->
 
@@ -44,14 +38,9 @@ html(lang="en")
 
         link(rel="stylesheet" href="main.css")
 
-
-  
     body
         include ./partials/preloader
         include ./partials/navigation
-        //- include ./pages/collections.pug
-
-        //- include ./pages/about.pug
 
         .content#content(data-template=template)
             block content 
