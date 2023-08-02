@@ -1,3 +1,34 @@
-import photo from "images/photo.png";
+import About from "pages/About";
+import Collections from "pages/Collections";
+import Detail from "pages/Detail";
+import Home from "pages/Home";
 
-console.log(photo);
+class App {
+  constructor() {
+    this.createContent();
+    this.createPages();
+  }
+
+  createContent() {
+    this.content = document.querySelector(".content");
+    // this.template = this.content.getAttribute("data-template");
+    this.template = this.content.dataset.template;
+
+    // this.content.dataset.template
+  }
+
+  createPages() {
+    this.pages = {
+      about: new About(),
+      collections: new Collections(),
+      detail: new Detail(),
+      home: new Home(),
+    };
+    // this.page = this.pages[this.template];
+    // this.page = this.pages.home;
+    // this.page.create();
+    console.log(this.pages);
+  }
+}
+
+new App();
