@@ -10,5 +10,7 @@ export default class About extends Page {
         title: ".about_title",
       },
     });
+
+    // console.log("About");
   }
 }

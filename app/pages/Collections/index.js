@@ -6,5 +6,7 @@ export default class Collections extends Page {
       id: "collections",
       element: ".collections",
     });
+
+    // console.log("Collections");
   }
 }

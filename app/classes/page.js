@@ -13,17 +13,21 @@ export default class Page {
     this.element = document.querySelector(this.selector);
     this.elements = {};
 
-    each(this.selectorChildren, (entry, key) => {
-      if (
-        entry instanceof window.HTMLElement ||
-        entry instanceof window.NodeList
-      ) {
-        this.elements[key] = entry;
-      }
+    each(this.selectorChildren, (entry) => {
       console.log(entry);
     });
 
-    console.log(this.elements);
+    // each(this.selectorChildren, (entry, key) => {
+    //   if (
+    //     entry instanceof window.HTMLElement ||
+    //     entry instanceof window.NodeList
+    //   ) {
+    //     this.elements[key] = entry;
+    //   }
+    //   console.log(entry);
+    // });
+
+    // console.log(this.elements);
 
     console.log("Create", this.id, this.element);
   }

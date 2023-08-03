@@ -6,5 +6,7 @@ export default class Detail extends Page {
       id: "detail",
       element: ".detail",
     });
+
+    // console.log("Detail");
   }
 }

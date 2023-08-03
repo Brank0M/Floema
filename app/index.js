@@ -11,10 +11,10 @@ class App {
 
   createContent() {
     this.content = document.querySelector(".content");
-    // this.template = this.content.getAttribute("data-template");
-    this.template = this.content.dataset.template;
-
+    this.template = this.content.getAttribute("data-template"); //
     // this.content.dataset.template
+
+    // console.log(this.template);
   }
 
   createPages() {
@@ -24,9 +24,10 @@ class App {
       detail: new Detail(),
       home: new Home(),
     };
-    // this.page = this.pages[this.template];
+    this.page = this.pages[this.template];
     // this.page = this.pages.home;
-    // this.page.create();
+    this.page.create();
+
     console.log(this.pages);
   }
 }
