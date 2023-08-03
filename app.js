@@ -18,9 +18,9 @@ const PrismicH = require("@prismicio/helpers");
 const { application } = require("express");
 const UAParser = require("ua-parser-js");
 
-app.use(logger("dev")); // Log requests to the console
-app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.urlencoded({ extended: false })); // extended: false - does not allow nested objects in query strings
+app.use(logger("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(errorHandler());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, "public")));
@@ -40,7 +40,7 @@ const HandleLinkResolver = (doc) => {
     return `/detail/${doc.slug}`;
   }
   if (doc.type === "collections" || doc === "collections") {
-    //collections_names
+    //Collections names
     return "/collections";
   }
   if (doc.type === "about") {
@@ -58,7 +58,7 @@ app.use((req, res, next) => {
   res.locals.isPhone = ua.device.type === "mobile";
   res.locals.isTablet = ua.device.type === "tablet";
 
-  // body class
+  // Body class
   res.locals.Link = HandleLinkResolver;
   res.locals.PrismicH = PrismicH;
   res.locals.Numbers = (index) => {
