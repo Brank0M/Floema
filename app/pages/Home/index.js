@@ -6,10 +6,17 @@ export default class Home extends Page {
       id: "home",
       element: ".home",
       elements: {
-        button: ".home_button",
+        navigation: document.querySelector(".navigation"),
+        link: ".home_link",
       },
     });
+  }
 
-    // console.log("Home");
+  create() {
+    super.create();
+
+    this.elements.link.addEventListener("click", (_) =>
+      console.log("Oh, you clicked me!")
+    );
   }
 }

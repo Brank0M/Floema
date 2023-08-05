@@ -63,7 +63,8 @@ module.exports = {
     rules: [
       {
         test: /\.js$/, // Transpiles JavaScript files
-        use: {  // replaced - use: "babel-loader",
+        use: {
+          // replaced - use: "babel-loader",
           loader: "babel-loader",
         },
       },
@@ -89,10 +90,10 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|jpe?g|svg|woff2?|fnt|webp|mp4)$/i, // replaced with bottom comment
-        type: 'asset/resource',
+        type: "asset/resource",
         // type: 'file-loader',
         generator: {
-          filename: '[name].[hash].[ext]',
+          filename: "[name].[hash].[ext]",
         },
       },
       // {
@@ -116,15 +117,15 @@ module.exports = {
             // options: {
             //   minimizer: {
             //     implementation: ImageMinimizerPlugin.imageminMinify,
-                // options: {
-                //   plugins: [
-                //     "imagemin-gifsicle",
-                //     "imagemin-mozjpeg",
-                //     "imagemin-pngquant",
-                //     "imagemin-svgo",
-                //   ],
-                // },
-              // },
+            // options: {
+            //   plugins: [
+            //     "imagemin-gifsicle",
+            //     "imagemin-mozjpeg",
+            //     "imagemin-pngquant",
+            //     "imagemin-svgo",
+            //   ],
+            // },
+            // },
             // },
           },
         ],
@@ -132,7 +133,7 @@ module.exports = {
       {
         test: /\.(glsl|frag|vert)$/, // Loads GLSL files
         type: "asset/source", // replaced - loader: "raw-loader",
-        // type: "raw-loader", 
+        // type: "raw-loader",
         exclude: /node_modules/,
       },
       {

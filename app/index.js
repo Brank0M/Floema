@@ -1,3 +1,4 @@
+import each from "lodash/each";
 import About from "pages/About";
 import Collections from "pages/Collections";
 import Detail from "pages/Detail";
@@ -7,6 +8,7 @@ class App {
   constructor() {
     this.createContent();
     this.createPages();
+    this.addLinkListeners();
   }
 
   createContent() {
@@ -25,10 +27,46 @@ class App {
       home: new Home(),
     };
     this.page = this.pages[this.template];
-    // this.page = this.pages.home;
     this.page.create();
+    this.page.show();
+  }
 
-    console.log(this.pages);
+  async onChange(url) {
+    await this.page.hide();
+    const request = await window.fetch(url);
+
+    if (request.status === 200) {
+      const html = await request.text();
+      const div = document.createElement("div");
+      div.innerHTML = html;
+
+      const divContent = div.querySelector(".content");
+      this.template = divContent.getAttribute("data-template");
+
+      this.content.innerHTML = divContent.innerHTML;
+
+      this.page = this.pages[this.template];
+      this.page.create();
+      this.page.show();
+    } else {
+      console.log("Error");
+    }
+
+    // console.log(request); // Promise (pending) - works until here!!!!!!!
+  }
+
+  addLinkListeners() {
+    const links = document.querySelectorAll("a");
+
+    each(links, (link) => {
+      link.onclick = (event) => {
+        event.preventDefault();
+
+        const { href } = link;
+
+        this.onChange(href);
+      };
+    });
   }
 }
 
