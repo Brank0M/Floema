@@ -51,8 +51,6 @@ class App {
     } else {
       console.log("Error");
     }
-
-    // console.log(request); // Promise (pending) - works until here!!!!!!!
   }
 
   addLinkListeners() {
