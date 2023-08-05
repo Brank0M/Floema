@@ -10,7 +10,7 @@ block content
                 .about_gallery_wrapper
                     each media in about.data.gallery
                         figure.about_gallery_media
-                            img.about_gallery_media_image(src=media.image.url alt=media.image.media) 
+                            img.about_gallery_media_image(data-src=media.image.url alt=media.image.media) 
 
             each section in about.data.body
                 if section.slice_type == 'title'
@@ -25,7 +25,7 @@ block content
                                 .about_content_description!=PrismicH.asHTML(section.primary.description)
 
                             figure.about_content_media
-                                img.about_content_media_image(src=section.primary.image.url alt=section.primary.image.media)
+                                img.about_content_media_image(data-src=section.primary.image.url alt=section.primary.image.media)
 
                 if section.slice_type == 'highlight'
                     section.about_highlight 
@@ -37,13 +37,13 @@ block content
 
                             each media in section.items
                                 figure.about_highlight_media 
-                                    img.about_highlight_media_image(src=media.image.url alt=media.image.media)
+                                    img.about_highlight_media_image(data-src=media.image.url alt=media.image.media)
         
                 if section.slice_type == 'gallery'
                     section.about_gallery
                         .about_gallery_wrapper
                             each media in section.items
                                 figure.about_gallery_media
-                                    img.about_gallery_media_image(src=media.image.url alt=media.image.media)
+                                    img.about_gallery_media_image(data-src=media.image.url alt=media.image.media)
 
             
