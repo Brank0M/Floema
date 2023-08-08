@@ -1,5 +1,6 @@
 .collections {
-    @extend %cover;
+    @extend %page;
+    // @extend %cover;
 
     background: $color-quicksand;
     color: $color-quarter-spanish-white;
@@ -7,6 +8,7 @@
 
 .collections_wrapper {
     @extend %cover;
+
     overflow: hidden;
 }
 
@@ -51,6 +53,7 @@
 
 .collections_gallery_media_image {
     @extend %cover;
+
     object-fit: cover;
 }
 
@@ -79,6 +82,7 @@
 
 .collections_article_description {
     @extend %description-16;
+
     max-width: 44rem;
 }
 
