@@ -1,7 +1,7 @@
 extends ../index.pug
 
 block variables 
-    - var template = 'about'
+    - var template = "about"
 
 block content
     .about
@@ -13,10 +13,10 @@ block content
                             img.about_gallery_media_image(data-src=media.image.url alt=media.image.media) 
 
             each section in about.data.body
-                if section.slice_type == 'title'
-                    h2.about_title!=section.primary.text.replace(/\n/, '<br>')
+                if section.slice_type == "title"
+                    h2.about_title(data-animation="title")!=section.primary.text.replace(/\n/, "<br>")
 
-                if section.slice_type == 'content'
+                if section.slice_type == "content"
                     section.about_content(class=section.primary.type === 'Left' ? 'about_content--left' : 'about_content--right')
                         .about_content_wrapper
                             .about_content_box
@@ -27,19 +27,19 @@ block content
                             figure.about_content_media
                                 img.about_content_media_image(data-src=section.primary.image.url alt=section.primary.image.media)
 
-                if section.slice_type == 'highlight'
+                if section.slice_type == "highlight"
                     section.about_highlight 
                         .about_highlight_wrapper
                             if section.primary.label
                                 p.about_highlight_label=section.primary.label
  
-                            h3.about_highlight_title=section.primary.title
+                            h3.about_highlight_title(data-animation="title")=section.primary.title
 
                             each media in section.items
                                 figure.about_highlight_media 
                                     img.about_highlight_media_image(data-src=media.image.url alt=media.image.media)
         
-                if section.slice_type == 'gallery'
+                if section.slice_type == "gallery"
                     section.about_gallery
                         .about_gallery_wrapper
                             each media in section.items

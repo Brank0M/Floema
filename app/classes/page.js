@@ -1,27 +1,24 @@
 import GSAP from "gsap";
+import NormalizeWheel from "normalize-wheel";
 import Prefix from "prefix";
 import each from "lodash/each";
+import map from "lodash/each";
+// import Ttile from "animations/Title.js";
+import Title from "animations/Title";
 
 export default class Page {
   constructor({ element, elements, id }) {
     this.selector = element;
     this.selectorChildren = {
       ...elements,
+      animationsTitles: "[data-animation='title']",
     };
 
     this.id = id;
     this.transformPrefix = Prefix("transform");
-
-    // this.scroll = {
-    //   current: 0,
-    //   target: 0,
-    //   last: 0,
-    //   limit: 1000,
-    // };
-
     this.onMouseWheelEvent = this.onMouseWheel.bind(this);
 
-    console.log(this.transformPrefix);
+    // console.log(this.transformPrefix);
   }
 
   create() {
@@ -51,9 +48,20 @@ export default class Page {
           this.elements[key] = document.querySelector(entry);
         }
       }
-
-      console.log(this.elements[key], entry);
     });
+    this.createAnimations();
+  }
+
+  createAnimations() {
+    console.log(this.elements.animationsTitles);
+
+    this.animationsTitles = map(this.elements.animationsTitles, (element) => {
+      return new Title({
+        element,
+      });
+    });
+
+    console.log(this.animationsTitles);
   }
 
   show() {
@@ -92,13 +100,22 @@ export default class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
     }
+    each(this.animations, (animation) => animation.onResize());
   }
+  // onResize() {
+  //   if (!this.elements.wrapper) return;
+
+  //   window.requestAnimationFrame((_) => {
+  //     this.scroll.limit =
+  //       this.elements.wrapper.clientHeight - window.innerHeight;
+  //   });
+
+  //   each(this.animations, (animation) => animation.onResize());
+  // }
 
   onMouseWheel(event) {
-    const { deltaY } = event;
-
-    console.log(deltaY);
-    this.scroll.target += deltaY;
+    const { pixelY } = NormalizeWheel(event);
+    this.scroll.target += pixelY;
   }
 
   update() {
