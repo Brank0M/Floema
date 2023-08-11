@@ -84,7 +84,7 @@ export default class Page {
       });
     });
 
-    this.animations.push(...this.animationsParagraphs);
+    this.animations.push(...this.animationsLabels);
   }
 
   show() {
