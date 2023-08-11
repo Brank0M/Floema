@@ -20,9 +20,9 @@ block content
                     section.about_content(class=section.primary.type === 'Left' ? 'about_content--left' : 'about_content--right')
                         .about_content_wrapper
                             .about_content_box
-                                p.about_content_label!=section.primary.label
+                                p.about_content_label(data-animation="label")!=section.primary.label
 
-                                .about_content_description!=PrismicH.asHTML(section.primary.description)
+                                .about_content_description!=PrismicH.asHTML(section.primary.description).replace(/<p>/g, '<p data-animation="paragraph">')
 
                             figure.about_content_media
                                 img.about_content_media_image(data-src=section.primary.image.url alt=section.primary.image.media)
@@ -31,7 +31,7 @@ block content
                     section.about_highlight 
                         .about_highlight_wrapper
                             if section.primary.label
-                                p.about_highlight_label=section.primary.label
+                                p.about_highlight_label(data-animation="label")=section.primary.label
  
                             h3.about_highlight_title(data-animation="title")=section.primary.title
 

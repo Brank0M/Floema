@@ -3,7 +3,8 @@ import NormalizeWheel from "normalize-wheel";
 import Prefix from "prefix";
 import each from "lodash/each";
 import map from "lodash/each";
-// import Ttile from "animations/Title.js";
+import Label from "animations/Label";
+import Paragraph from "animations/Paragraph";
 import Title from "animations/Title";
 
 export default class Page {
@@ -11,7 +12,10 @@ export default class Page {
     this.selector = element;
     this.selectorChildren = {
       ...elements,
+
       animationsTitles: "[data-animation='title']",
+      animationsParagraphs: "[data-animation='paragraph']",
+      animationsLabels: "[data-animation='label']",
     };
 
     this.id = id;
@@ -53,7 +57,7 @@ export default class Page {
   }
 
   createAnimations() {
-    console.log(this.elements.animationsTitles);
+    this.animations = [];
 
     this.animationsTitles = map(this.elements.animationsTitles, (element) => {
       return new Title({
@@ -61,7 +65,26 @@ export default class Page {
       });
     });
 
-    console.log(this.animationsTitles);
+    this.animations.push(...this.animationsTitles);
+
+    this.animationsParagraphs = map(
+      this.elements.animationsParagraphs,
+      (element) => {
+        return new Paragraph({
+          element,
+        });
+      }
+    );
+
+    this.animations.push(...this.animationsParagraphs);
+
+    this.animationsLabels = map(this.elements.animationsLabels, (element) => {
+      return new Label({
+        element,
+      });
+    });
+
+    this.animations.push(...this.animationsParagraphs);
   }
 
   show() {
@@ -102,16 +125,6 @@ export default class Page {
     }
     each(this.animations, (animation) => animation.onResize());
   }
-  // onResize() {
-  //   if (!this.elements.wrapper) return;
-
-  //   window.requestAnimationFrame((_) => {
-  //     this.scroll.limit =
-  //       this.elements.wrapper.clientHeight - window.innerHeight;
-  //   });
-
-  //   each(this.animations, (animation) => animation.onResize());
-  // }
 
   onMouseWheel(event) {
     const { pixelY } = NormalizeWheel(event);
@@ -150,5 +163,3 @@ export default class Page {
     window.removeEventListener("mousewheel", this.onMouseWheelEvent);
   }
 }
-
-// 0.23.49h stopped!

@@ -14,7 +14,7 @@ export default class Title extends Animation {
 
     let line = this.element.querySelectorAll("span span"); // Creating an array of spans
     this.elementsLines = calculate(line); // Calculating the position of each span
-    console.log(this.elementsLines);
+    // console.log(this.elementsLines);
 
     // this.elementLinesSpans = this.element.querySelectorAll("span span"); //
     // console.log(this.elementLinesSpans);
@@ -28,7 +28,7 @@ export default class Title extends Animation {
     });
 
     each(this.elementsLines, (line, index) => {
-      GSAP.fromTo(
+      this.timelineIn.fromTo(
         line,
         {
           y: "100%",
@@ -59,3 +59,4 @@ export default class Title extends Animation {
 
 // Time: 24:31h problem with span to array. GSAP is not working!
 // Time: 34.55h Creating paragraph !!!!
+// Time: 36:56h onResize() errror

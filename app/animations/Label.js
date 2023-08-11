@@ -3,7 +3,7 @@ import Animation from "classes/Animation.js";
 import each from "lodash/each";
 import { calculate, split } from "utils/text.js";
 
-export default class Paragraph extends Animation {
+export default class Label extends Animation {
   constructor({ element, elements }) {
     super({
       element,
