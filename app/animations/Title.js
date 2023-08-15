@@ -12,12 +12,12 @@ export default class Title extends Animation {
     split({ element: this.element, append: true });
     split({ element: this.element, append: true });
 
-    // let line = this.element.querySelectorAll("span span"); // Creating an array of spans
-    // this.elementsLines = calculate(line); // Calculating the position of each span
+    let line = this.element.querySelectorAll("span span"); // Creating an array of spans
+    this.elementsLines = calculate(line); // Calculating the position of each span
     // console.log(this.elementsLines);
 
-    this.elementLinesSpans = this.element.querySelectorAll("span span"); //
-    console.log(this.elementLinesSpans);
+    // this.elementLinesSpans = this.element.querySelectorAll("span span"); //
+    // console.log(this.elementLinesSpans);
   }
 
   animateIn() {

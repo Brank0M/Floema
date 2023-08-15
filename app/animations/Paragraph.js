@@ -10,7 +10,13 @@ export default class Paragraph extends Animation {
       elements,
     });
 
-    this.elementLinesSpans = split({ element: this.element, append: true });
+    // this.elementLinesSpans = split({ element: this.element, append: true });
+    split({ element: this.element, append: true });
+    split({ element: this.element, append: true });
+
+    let line = this.element.querySelectorAll("span span"); // Creating an array of spans
+    this.elementsLines = calculate(line); // Calculating the position of each span
+    // console.log(this.elementsLines);
   }
 
   animateIn() {
@@ -30,7 +36,7 @@ export default class Paragraph extends Animation {
         {
           autoAlpha: 1,
           delay: 0.5 + index * 0.2,
-          duration: 1.5,
+          duration: 1,
           ease: "expo.out",
           y: "0%",
         }

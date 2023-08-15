@@ -1,9 +1,9 @@
 .about {
     @extend %page;
 
-    background: $color-cadet-blue;
-    color: $color-bright-gray;
-    opacity: 0;
+    // background: $color-cadet-blue;
+    // color: $color-bright-gray;
+    // // opacity: 0;
 }
 
 .about_wrapper {
@@ -14,7 +14,8 @@
     @extend %title-100;
 
     margin: auto;
-    max-width: 126rem;
+    // max-width: 126rem;
+    max-width: 150rem;
     text-align: center;
 
     @include media('<phone') {
