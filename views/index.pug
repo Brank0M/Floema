@@ -1,7 +1,7 @@
 block variables
 
 doctype html
-html(lang="en")
+html(class=isDesktop ? "desktop" : isTablet ? "tablet" : isPhone ? "phone" : "" lang="en")
     head
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
@@ -24,7 +24,10 @@ html(lang="en")
 
     <!-- Twitter -->
 
-        meta(name="twitter:card" content="summary_large_image")
+        DRAGGABLE & SCROLLABLE PARALLAX SLIDER
+PREVIOUS DEMO / TUTORIAL / GITHUB
+
+meta(name="twitter:card" content="summary_large_image")
         meta(name="twitter:title" content=meta.data.title)
         meta(name="twitter:description" content=meta.data.description)
         meta(name="twitter:image" content=meta.data.image ? meta.data.image.url : '')
@@ -46,5 +49,6 @@ html(lang="en")
             block content
 
         script(src="main.js")
+
 
 

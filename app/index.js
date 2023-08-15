@@ -57,13 +57,26 @@ class App {
     this.page.show();
   }
 
-  async onChange(url) {
+  onPopState() {
+    this.onChange({
+      url: window.location.pathname,
+      push: false,
+    });
+  }
+
+  async onChange({ url, push = true }) {
+    // this.canvas.onChangeStart(this.template, url);
+
     await this.page.hide();
     const request = await window.fetch(url);
 
     if (request.status === 200) {
       const html = await request.text();
       const div = document.createElement("div");
+
+      if (push) {
+        window.history.pushState({}, "", url); // Change the url in the browser without reloading the page
+      }
 
       div.innerHTML = html;
 
@@ -100,6 +113,8 @@ class App {
   }
   // Listeners for the window object (resize, mousewheel) are added to the App class.
   addEventListeners() {
+    window.addEventListener("popstate", this.onPopState.bind(this));
+
     window.addEventListener("resize", this.onResize.bind(this));
     // window.addEventListener("mousewheel", this.onMouseWheel.bind(this));
   }
@@ -113,7 +128,7 @@ class App {
 
         const { href } = link;
 
-        this.onChange(href);
+        this.onChange({ url: href });
       };
     });
   }

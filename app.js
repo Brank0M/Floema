@@ -58,6 +58,7 @@ app.use((req, res, next) => {
   res.locals.isPhone = ua.device.type === "mobile";
   res.locals.isTablet = ua.device.type === "tablet";
 
+  console.log(res.locals.isDesktop, res.locals.isPhone, res.locals.isTablet);
   // Body class
   res.locals.Link = HandleLinkResolver;
   res.locals.PrismicH = PrismicH;
