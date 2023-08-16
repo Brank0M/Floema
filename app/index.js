@@ -1,6 +1,9 @@
 import each from "lodash/each";
+
+import Canvas from "components/Canvas";
 import Navigation from "components/Navigation";
 import Preloader from "components/Preloader";
+
 import About from "pages/About";
 import Collections from "pages/Collections";
 import Home from "pages/Home";
@@ -9,11 +12,16 @@ import Detail from "pages/Detail";
 class App {
   constructor() {
     this.createContent();
+
     this.createPreloader();
     this.createNavigation();
+
+    this.createCanvas();
     this.createPages();
+
     this.addEventListeners();
     this.addLinkListeners();
+
     this.onResize();
     this.update();
   }
@@ -27,6 +35,10 @@ class App {
   createPreloader() {
     this.preloader = new Preloader();
     this.preloader.once("completed", this.onPreloaded.bind(this));
+  }
+
+  createCanvas() {
+    this.canvas = new Canvas();
   }
 
   createContent() {
@@ -86,6 +98,7 @@ class App {
       this.navigation.onChange(this.template);
       this.content.setAttribute("data-template", this.template);
       this.content.innerHTML = divContent.innerHTML;
+
       this.page = this.pages[this.template];
       this.page.create();
 
@@ -99,6 +112,10 @@ class App {
   }
 
   onResize() {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onResize();
+    }
+
     if (this.page && this.page.onResize) {
       this.page.onResize();
     }
@@ -106,6 +123,10 @@ class App {
 
   // Loop
   update() {
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update();
+    }
+
     if (this.page && this.page.update) {
       this.page.update();
     }
