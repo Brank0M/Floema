@@ -2,6 +2,7 @@
 *::after,
 *::before {
     box-sizing: border-box;
+    user-select: none;
 }
 
 html {
@@ -22,7 +23,7 @@ html {
 body {
     @extend %cover;
     @extend %description-16;
-    
+
     font-family: $font-suisse-bp;
     position: fixed;
 }
@@ -55,10 +56,12 @@ img {
     @extend %cover;
 }
 
-[data-animation="title"], [data-animation="paragraph"], [data-animation="label"] {
+[data-animation="title"],
+[data-animation="paragraph"],
+[data-animation="label"] {
     span {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: top;
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
     }
 }
