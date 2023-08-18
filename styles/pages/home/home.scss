@@ -50,7 +50,7 @@
 .home_gallery {
     @extend %cover;
 
-    width: 241.8rem;
+    width: 241.8rem + 9rem; // 9rem is the margin of the last element
     height: 172.5rem;
     visibility: hidden;
 }
