@@ -37,8 +37,8 @@ export default class Media {
       fragment,
       vertex,
       uniforms: {
+        uAlpha: { value: 0 },
         tMap: { value: this.texture },
-        // uAlpha: { value: 0 },
       },
     });
   }
@@ -52,9 +52,6 @@ export default class Media {
     this.mesh.setParent(this.scene);
 
     this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03);
-    // this.mesh.scale.x = 2;
-
-    // this.mesh.position.x += this.index + this.mesh.scale.x; // time 23:19 of the video
   }
 
   createBounds({ sizes }) {
@@ -67,6 +64,25 @@ export default class Media {
   }
 
   /**
+   * Animations
+   */
+
+  show() {
+    GSAP.fromTo(this.program.uniforms.uAlpha, {
+      value: 0,
+    }, {
+      value: 1,
+    });
+  }
+
+  hide() {
+    GSAP.to(this.program.uniforms.uAlpha, {
+      value: 0,
+    });
+  }
+
+
+  /**
    * Events.
    */
   onResize(sizes, scroll) {
@@ -77,8 +93,8 @@ export default class Media {
     };
 
     this.createBounds(sizes);
-    this.updateX(scroll.x ? scroll.x : 0);
-    this.updateY(scroll.y ? scroll.y : 0);
+    this.updateX(scroll.x && scroll.x);
+    this.updateY(scroll.y && scroll.y);
   }
 
   /**

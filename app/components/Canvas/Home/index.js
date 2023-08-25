@@ -6,32 +6,24 @@ import Media from "./Media";
 export default class {
   constructor({ gl, scene, sizes }) {
     this.gl = gl;
-    this.scene = scene; // scene is a Transform() object
+    this.scene = scene; // scene this.scene is a Transform() object
     this.sizes = sizes;
-    // this.scene = new Transform(); // test line
-    this.group = new Transform();
+    this.scene = new Transform(); // scene is a Transform() object // test line works
+    // this.group = new Transform(); // group it doesn't work
 
     this.galleryElement = document.querySelector(".home_gallery");
     this.mediasElements = document.querySelectorAll(".home_gallery_media_image");
-
-    this.createGeometry();
-    this.createGallery();
-
-    this.group.setParent(scene);
-    // this.scene.setParent(scene);
 
     this.x = {
       current: 0,
       target: 0,
       lerp: 0.1,
-      multiplier: 0.5,
     };
 
     this.y = {
       current: 0,
       target: 0,
       lerp: 0.1,
-      multiplier: 0.5,
     };
 
     this.scrollCurrent = {
@@ -43,6 +35,14 @@ export default class {
       x: 0,
       y: 0,
     };
+
+    this.createGeometry();
+    this.createGallery();
+
+    // this.group.setParent(scene); // group it doesn't work
+    this.scene.setParent(scene); // scene setParent works 
+
+    this.show();
   }
 
   createGeometry() {
@@ -60,6 +60,18 @@ export default class {
         sizes: this.sizes,
       });
     });
+  }
+
+  /**
+   * Animations.
+   */
+
+  show() {
+    map(this.medias, (media) => media.show());
+  }
+
+  hide() {
+    map(this.medias, (media) => media.hide());
   }
 
   /**
@@ -101,7 +113,6 @@ export default class {
     this.x.target += pixelX;
     this.y.target += pixelY;
   }
-  // 43.36
 
   /**
    * Update.
@@ -169,5 +180,13 @@ export default class {
 
       media.update(this.scroll);
     });
+  }
+
+  /**
+   * Destroy.
+   */
+  destroy() {
+    // this.scene.removeChild(this.group);
+    this.scene.removeChild(this.scene);
   }
 }

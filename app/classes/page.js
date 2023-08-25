@@ -156,7 +156,7 @@ export default class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
     }
-    each(this.animations, (animation) => animation.onResize()); // Not working with the new animations
+    // each(this.animations, (animation) => animation.onResize()); // Not working with the new animations
   }
   /**
    * Mouse wheel event
