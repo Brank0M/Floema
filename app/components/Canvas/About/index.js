@@ -82,9 +82,12 @@ export default class {
      * Update.
      */
 
-    update() {
-        map(this.galleries, (gallery) => gallery.update());
-    }
+    update(scroll) {
+        //     const y = scroll.current / window.innerHeight;
+
+        map(this.galleries, (gallery) => gallery.update(scroll));
+
+    } // 22:10h
 
     /**
      * Destroy.

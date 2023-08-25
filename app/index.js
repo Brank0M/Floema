@@ -177,13 +177,16 @@ class App {
    * Loop.
    */
   update() {
-    if (this.canvas && this.canvas.update) {
-      this.canvas.update();
-    }
-
     if (this.page && this.page.update) {
       this.page.update();
     }
+
+    console.log(this.page.current);
+
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update(this.page.scroll);
+    }
+
     this.frame = window.requestAnimationFrame(this.update.bind(this));
   }
   // Listeners for the window object (resize, mousewheel) are added to the App class.
