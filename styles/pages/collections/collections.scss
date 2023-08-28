@@ -15,6 +15,8 @@
 .collections_titles {
     @extend %vertical-titles;
 
+    transition: transform 1s ease;
+
     @include media('<phone') {
         display: none;
     }
@@ -30,26 +32,37 @@
 
 .collections_gallery {
     @extend %cover;
+    z-index: 1; // maybe to be active
 } 
 
 .collections_gallery_wrapper {
     display: flex;
     align-items: center;
     top: 50%;
+    left: 50%;
     position: absolute;
-    transform: translateY(-50%);
-    z-index: 1; // to be on top of the article!!!!
+    transform: translate(-44.7rem * 0.5, -50%);
+    // z-index: 1; // to be on top of the article!!!!
 } 
 
 .collections_gallery_link {
     display: block;
     margin: 0 5.3rem;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
 }
 
 .collections_gallery_media {
     position: relative;
     height: 63.1rem;
     width: 44.7rem;
+    visibility: hidden;
 } 
 
 .collections_gallery_media_image {
@@ -71,9 +84,11 @@
     left: 8rem;
     bottom: 8rem;
     opacity: 0;
+    transition: opacity 0.4s ease;
 
     &--active {
         opacity: 1;
+        transition-delay: 0.4s;
     }
 } 
 
@@ -112,3 +127,13 @@
     font-size: 12rem;
     font-family: $font-george-x;
 }
+
+// .collections_button {
+//     position: absolute;
+//     left: 50%;
+//     top: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 44.7rem;
+//     height: 63.1rem;
+     
+// }

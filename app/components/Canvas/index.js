@@ -2,6 +2,7 @@ import { Camera, Renderer, Transform } from "ogl";
 
 import Home from "./Home";
 import About from "./About";
+import Collections from "./Collections";
 
 export default class Canvas {
   constructor({ template }) {
@@ -26,7 +27,6 @@ export default class Canvas {
     this.onResize();
 
     this.onChangeEnd(this.template);
-    // this.createHome();
   }
 
   createRenderer() {
@@ -48,6 +48,10 @@ export default class Canvas {
     this.scene = new Transform();
   }
 
+  /**
+   * Home
+   */
+
   createHome() {
     this.home = new Home({
       gl: this.gl,
@@ -61,6 +65,9 @@ export default class Canvas {
     this.home.destroy();
     this.home = null;
   }
+  /**
+   * About
+  */
 
   createAbout() {
     this.about = new About({
@@ -77,8 +84,27 @@ export default class Canvas {
   }
 
   /**
+   * Collections
+   */
+
+  createCollections() {
+    this.collections = new Collections({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes,
+    });
+  }
+
+  destroyCollections() {
+    if (!this.collections) return;
+    this.collections.destroy();
+    this.collections = null;
+  }
+
+  /**
    * Events.
    */
+
   onChangeStart(template, url) {
     if (this.home) {
       this.home.hide();
@@ -87,8 +113,13 @@ export default class Canvas {
     if (this.about) {
       this.about.hide();
     }
+
+    if (this.collections) {
+      this.collections.hide();
+    }
   }
 
+  // STOPPED HERE 37.12h
   onChangeEnd(template) {
     if (template === "home") {
       this.createHome();
@@ -101,15 +132,21 @@ export default class Canvas {
     } else if (this.about) {
       this.destroyAbout();
     }
-  }
 
+    if (template === "collections") {
+      // this.gl.canvas.style.zIndex = 100;
+      this.createCollections();
+    } else if (this.collections) {
+      // this.gl.canvas.style.zIndex = "";
+      this.destroyCollections();
+    }
+  }
 
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     this.camera.perspective({
       aspect: window.innerWidth / window.innerHeight,
-      // aspect: this.gl.canvas.width / this.gl.canvas.height,
     });
 
     const fov = this.camera.fov * (Math.PI / 180);
@@ -132,11 +169,11 @@ export default class Canvas {
     if (this.about) {
       this.about.onResize(values);
     }
-  }
 
-  // this.camera.perspective({
-  //   aspect: this.gl.canvas.width / this.gl.canvas.height,
-  // });
+    if (this.collections) {
+      this.collections.onResize(values);
+    }
+  }
 
   onTouchDown(event) {
     this.isDown = true;
@@ -156,6 +193,10 @@ export default class Canvas {
     if (this.about) {
       this.about.onTouchDown(values);
     }
+
+    if (this.collections) {
+      this.collections.onTouchDown(values);
+    }
   }
 
   onTouchMove(event) {
@@ -166,8 +207,6 @@ export default class Canvas {
 
     this.x.end = x;
     this.y.end = y;
-    // this.x.distance = this.x.start - this.x.end;
-    // this.y.distance = this.y.start - this.y.end;
 
     const values = {
       x: this.x,
@@ -180,6 +219,10 @@ export default class Canvas {
 
     if (this.about) {
       this.about.onTouchMove(values);
+    }
+
+    if (this.collections) {
+      this.collections.onTouchMove(values);
     }
   }
 
@@ -195,8 +238,6 @@ export default class Canvas {
 
     this.x.end = x;
     this.y.end = y;
-    // this.x.distance = this.x.start - this.x.end;
-    // this.y.distance = this.y.start - this.y.end;
 
     const values = {
       x: this.x,
@@ -210,11 +251,19 @@ export default class Canvas {
     if (this.about) {
       this.about.onTouchUp(values);
     }
+
+    if (this.collections) {
+      this.collections.onTouchUp(values);
+    }
   }
 
   onWheel(event) {
     if (this.home) {
       this.home.onWheel(event);
+    }
+
+    if (this.collections) {
+      this.collections.onWheel(event);
     }
   }
 
@@ -229,6 +278,10 @@ export default class Canvas {
 
     if (this.about) {
       this.about.update(scroll);
+    }
+
+    if (this.collections) {
+      this.collections.update();
     }
 
     this.renderer.render({

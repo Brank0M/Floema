@@ -181,8 +181,6 @@ class App {
       this.page.update();
     }
 
-    console.log(this.page.current);
-
     if (this.canvas && this.canvas.update) {
       this.canvas.update(this.page.scroll);
     }
