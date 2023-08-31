@@ -34,17 +34,18 @@ a {
     text-decoration: none;
 }
 
-canvas { // maybe to be removed
-    position: relative;
-    pointer-events: none;
-}
-
 button {
     background: none;
     border: none;
     color: inherit;
     cursor: pointer;
     outline: none;
+}
+
+canvas { 
+    position: relative;
+    pointer-events: none;
+    z-index: z('canvas');
 }
 
 img {

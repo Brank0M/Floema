@@ -16,17 +16,17 @@ class App {
   constructor() {
     this.createContent();
 
-    this.createPreloader();
-    this.createNavigation();
-
     this.createCanvas();
-    this.createPages();
+    this.createPreloader();
 
-    this.addEventListeners();
-    this.addLinkListeners();
+    this.createNavigation();
+    this.createPages();
 
     this.onResize();
     this.update();
+
+    this.addEventListeners();
+    this.addLinkListeners();
   }
 
   createNavigation() {
@@ -36,7 +36,9 @@ class App {
   }
 
   createPreloader() {
-    this.preloader = new Preloader();
+    this.preloader = new Preloader({
+      canvas: this.canvas,
+    });
     this.preloader.once("completed", this.onPreloaded.bind(this));
   }
 
@@ -69,8 +71,9 @@ class App {
 
   // Events
   onPreloaded() {
-    this.preloader.destroy();
+    this.canvas.onPreloaded();
     this.onResize();
+    // this.preloader.destroy();
     this.page.show();
   }
 

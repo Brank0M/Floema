@@ -434,8 +434,6 @@
 
 /*! utils/text */
 
-/*! utils/text.js */
-
 /*! webpack/hot/emitter.js */
 
 /*! webpack/hot/log.js */

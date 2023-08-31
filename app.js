@@ -66,12 +66,12 @@ app.use((req, res, next) => {
     return index === 0
       ? "One"
       : index === 1
-      ? "Two"
-      : index === 2
-      ? "Three"
-      : index === 3
-      ? "Four"
-      : "";
+        ? "Two"
+        : index === 2
+          ? "Three"
+          : index === 3
+            ? "Four"
+            : "";
   };
 
   //console.log(res.locals.Link);

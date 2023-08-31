@@ -22,14 +22,20 @@ export default class Media {
     };
   }
 
+  // STOPPED HERE 30.47h
+
   createTexture() {
-    this.texture = new Texture(this.gl);
+    const image = this.element;
 
-    this.image = new window.Image();
-    this.image.crossOrigin = "anonymous";
+    this.texture = window.TEXTURES[image.getAttribute("data-src")];
 
-    this.image.src = this.element.getAttribute("data-src");
-    this.image.onload = () => (this.texture.image = this.image);
+    // this.texture = new Texture(this.gl);
+
+    // this.image = new window.Image();
+    // this.image.crossOrigin = "anonymous";
+
+    // this.image.src = this.element.getAttribute("data-src");
+    // this.image.onload = () => (this.texture.image = this.image);
   }
 
   createProgram() {
@@ -71,7 +77,7 @@ export default class Media {
     GSAP.fromTo(this.program.uniforms.uAlpha, {
       value: 0,
     }, {
-      value: 1,
+      value: 0.5, // opacity of the image home page
     });
   }
 

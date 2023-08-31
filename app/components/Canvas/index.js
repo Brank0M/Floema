@@ -26,7 +26,7 @@ export default class Canvas {
 
     this.onResize();
 
-    this.onChangeEnd(this.template);
+    // this.onChangeEnd(this.template);
   }
 
   createRenderer() {
@@ -104,6 +104,9 @@ export default class Canvas {
   /**
    * Events.
    */
+  onPreloaded() {
+    this.onChangeEnd(this.template);
+  }
 
   onChangeStart(template, url) {
     if (this.home) {
@@ -134,10 +137,8 @@ export default class Canvas {
     }
 
     if (template === "collections") {
-      // this.gl.canvas.style.zIndex = 100;
       this.createCollections();
     } else if (this.collections) {
-      // this.gl.canvas.style.zIndex = "";
       this.destroyCollections();
     }
   }
