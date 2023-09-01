@@ -25,11 +25,11 @@ export default class Gallery {
             velocity: 1,
         };
 
-        // this.createTexture();
-        // this.createProgram();
-        // this.createMesh();
-
         this.createMedias();
+
+        this.onResize({
+            sizes: this.sizes,
+        });
 
         this.group.setParent(this.scene);
     }
@@ -94,9 +94,6 @@ export default class Gallery {
      */
 
     update(scroll) {
-        if (!this.bounds) return;
-
-
         const distance = (scroll.current - scroll.target) * 0.1;
         const y = scroll.current / window.innerHeight;
 

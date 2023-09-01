@@ -6,10 +6,10 @@ import Media from "./Media";
 export default class {
   constructor({ gl, scene, sizes }) {
     this.gl = gl;
-    this.scene = scene; // scene this.scene is a Transform() object
+    this.scene = scene;
     this.sizes = sizes;
-    this.scene = new Transform(); // scene is a Transform() object // test line works
-    // this.group = new Transform(); // group it doesn't work
+    this.scene = new Transform();
+    // this.group = new Transform();
 
     this.galleryElement = document.querySelector(".home_gallery");
     this.mediasElements = document.querySelectorAll(".home_gallery_media_image");
@@ -44,6 +44,10 @@ export default class {
 
     this.createGeometry();
     this.createGallery();
+
+    this.onResize({
+      sizes: this.sizes,
+    });
 
     // this.group.setParent(scene); // group it doesn't work
     this.scene.setParent(scene); // scene setParent works 
@@ -131,8 +135,6 @@ export default class {
    */
 
   update() {
-    if (!this.galleryBounds) return;
-
     this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp);
 
     this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp);

@@ -12,30 +12,21 @@ export default class Media {
     this.scene = scene;
     this.sizes = sizes;
 
-    this.createTexture();
-    this.createProgram();
-    this.createMesh();
-
     this.extra = {
       x: 0,
       y: 0,
     };
-  }
 
-  // STOPPED HERE 30.47h
+    this.createTexture();
+    this.createProgram();
+    this.createMesh();
+    this.createBounds({ sizes: this.sizes });
+  }
 
   createTexture() {
     const image = this.element;
 
     this.texture = window.TEXTURES[image.getAttribute("data-src")];
-
-    // this.texture = new Texture(this.gl);
-
-    // this.image = new window.Image();
-    // this.image.crossOrigin = "anonymous";
-
-    // this.image.src = this.element.getAttribute("data-src");
-    // this.image.onload = () => (this.texture.image = this.image);
   }
 
   createProgram() {
@@ -130,8 +121,6 @@ export default class Media {
   }
 
   update(scroll, speed) {
-    if (!this.bounds) return;
-
     this.updateX(scroll.x);
     this.updateY(scroll.y);
 

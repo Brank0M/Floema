@@ -25,9 +25,6 @@ export default class Page {
 
     this.id = id;
     this.transformPrefix = Prefix("transform");
-    // this.onMouseWheelEvent = this.onMouseWheel.bind(this);
-
-    // console.log(this.transformPrefix);
   }
 
   create() {
@@ -109,26 +106,30 @@ export default class Page {
       return new AsyncLoad({ element });
     });
   }
+
   /**
    * Animations to show the page
    */
-  show() {
+  show(animation) {
     return new Promise((resolve) => {
       ColorManger.change({
         backgroundColor: this.element.getAttribute("data-background"),
         color: this.element.getAttribute("data-color"),
       });
 
-      this.animationIn = GSAP.timeline();
-      this.animationIn.fromTo(
-        this.element,
-        {
-          autoAlpha: 0,
-        },
-        {
-          autoAlpha: 1,
-        }
-      );
+      if (animation) {
+        this.animationIn = animation;
+      } else {
+        this.animationIn = GSAP.timeline();
+        this.animationIn.fromTo(
+          this.element,
+          {
+            autoAlpha: 0,
+          },
+          {
+            autoAlpha: 1,
+          });
+      }
 
       this.animationIn.call((_) => {
         this.addEventListeners();
@@ -156,14 +157,15 @@ export default class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
     }
-    // each(this.animations, (animation) => animation.onResize()); // Not working with the new animations
   }
+
   /**
    * Mouse wheel event
    */
   onWheel({ pixelY }) {
     this.scroll.target += pixelY;
   }
+
   /**
    * Loop to update the scroll
    */
@@ -190,6 +192,7 @@ export default class Page {
       ] = `translateY(-${this.scroll.current}px)`; // this.scroll.current
     }
   }
+
   /**
    * Add and remove event listeners
    */

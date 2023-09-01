@@ -6,15 +6,15 @@ import Gallery from "./Gallery";
 export default class {
     constructor({ gl, scene, sizes }) {
         this.gl = gl;
-        this.scene = scene; // scene is a Transform() object
+        // this.scene = scene;
         this.sizes = sizes;
-        // this.scene = new Transform(); // test line
         this.group = new Transform();
 
         this.createGeometry();
         this.createGalleries();
-
-        // this.galleries = document.querySelectorAll(".about_gallery");
+        this.onResize({
+            sizes: this.sizes,
+        });
 
         this.group.setParent(scene);
         // this.scene.setParent(scene);
