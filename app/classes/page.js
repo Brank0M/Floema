@@ -59,9 +59,19 @@ export default class Page {
     this.createPreloader();
   }
 
+  createPreloader() {
+    this.preloaders = map(this.elements.preloaders, (element) => {
+      return new AsyncLoad({ element });
+    });
+  }
+
+  /**
+   * Animations
+  */
   createAnimations() {
     this.animations = [];
 
+    //Titels
     this.animationsTitles = map(this.elements.animationsTitles, (element) => {
       return new Title({
         element,
@@ -70,6 +80,7 @@ export default class Page {
 
     this.animations.push(...this.animationsTitles);
 
+    //Paragraphs
     this.animationsParagraphs = map(
       this.elements.animationsParagraphs,
       (element) => {
@@ -81,6 +92,7 @@ export default class Page {
 
     this.animations.push(...this.animationsParagraphs);
 
+    //Labels
     this.animationsLabels = map(this.elements.animationsLabels, (element) => {
       return new Label({
         element,
@@ -89,6 +101,7 @@ export default class Page {
 
     this.animations.push(...this.animationsLabels);
 
+    //Highlights
     this.animationsHighlights = map(
       this.elements.animationsHighlights,
       (element) => {
@@ -101,11 +114,7 @@ export default class Page {
     this.animations.push(...this.animationsHighlights);
   }
 
-  createPreloader() {
-    this.preloaders = map(this.elements.preloaders, (element) => {
-      return new AsyncLoad({ element });
-    });
-  }
+
 
   /**
    * Animations to show the page
@@ -141,7 +150,9 @@ export default class Page {
   hide() {
     return new Promise((resolve) => {
       this.destroy();
+
       this.animationOut = GSAP.timeline();
+
       this.animationOut.to(this.element, {
         autoAlpha: 0,
         onComplete: resolve,
@@ -189,7 +200,7 @@ export default class Page {
     if (this.elements.wrapper) {
       this.elements.wrapper.style[
         this.transformPrefix
-      ] = `translateY(-${this.scroll.current}px)`; // this.scroll.current
+      ] = `translateY(-${this.scroll.current}px)`;
     }
   }
 

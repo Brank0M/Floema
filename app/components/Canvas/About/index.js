@@ -6,9 +6,9 @@ import Gallery from "./Gallery";
 export default class {
     constructor({ gl, scene, sizes }) {
         this.gl = gl;
-        // this.scene = scene;
+        this.scene = scene; // Scene has to be a Transform() object
         this.sizes = sizes;
-        this.group = new Transform();
+        this.group = new Transform();  // Transform() object from ogl 
 
         this.createGeometry();
         this.createGalleries();

@@ -6,12 +6,11 @@ block variables
 block content
     .detail(data-background="#BC978C" data-color="#F9F1E7")
         .detail_wrapper 
-
             figure.detail_media 
                 img.detail_media_image(data-src=product.data.image.url alt=product.data.image.alt)
 
             .detail_information 
-                p.detail_information_collection=product.data.collection.data.title
+                p.detail_information_collection=product.data.collection.slug + ' ' + product.data.collection.type
 
                 h1.detail_information_title=product.data.title
 

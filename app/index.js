@@ -22,11 +22,11 @@ class App {
     this.createNavigation();
     this.createPages();
 
-    this.onResize();
-    this.update();
-
     this.addEventListeners();
     this.addLinkListeners();
+
+    this.onResize();
+    this.update();
   }
 
   createNavigation() {
@@ -50,10 +50,7 @@ class App {
 
   createContent() {
     this.content = document.querySelector(".content");
-    this.template = this.content.getAttribute("data-template"); //
-    // this.content.dataset.template
-
-    // console.log(this.template);
+    this.template = this.content.getAttribute("data-template");
   }
 
   createPages() {
@@ -63,17 +60,17 @@ class App {
       home: new Home(),
       detail: new Detail(),
     };
+
     this.page = this.pages[this.template];
     this.page.create();
-
-    // this.navigation.onChange(this.template);
   }
 
   // Events
   onPreloaded() {
-    this.canvas.onPreloaded();
     this.onResize();
-    // this.preloader.destroy();
+
+    this.canvas.onPreloaded();
+
     this.page.show();
   }
 
@@ -81,6 +78,7 @@ class App {
     this.onChange({
       url: window.location.pathname,
       push: false,
+      // push: true,
     });
   }
 
@@ -88,6 +86,7 @@ class App {
     this.canvas.onChangeStart(this.template, url);
 
     await this.page.hide();
+
     const request = await window.fetch(url);
 
     if (request.status === 200) {

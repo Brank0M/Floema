@@ -8,12 +8,13 @@ export default class {
     constructor({ gl, scene, sizes, transition }) {
         this.id = "collections";
         this.gl = gl;
-        this.scene = scene; // scene this.scene is a Transform() object
+        this.scene = scene;
         this.sizes = sizes;
         this.transition = transition;
 
         this.transformPrefix = Prefix("transform");
-        this.scene = new Transform();
+
+        this.group = new Transform();
 
         this.galleryElement = document.querySelector(".collections_gallery");
         this.galleryWrapperElement = document.querySelector(".collections_gallery_wrapper");
@@ -38,8 +39,7 @@ export default class {
             sizes: this.sizes,
         });
 
-        // this.group.setParent(scene); // group it doesn't work
-        this.scene.setParent(scene); // scene setParent works 
+        this.group.setParent(this.scene);
 
         this.show();
     }
@@ -55,7 +55,7 @@ export default class {
                 geometry: this.geometry,
                 index,
                 gl: this.gl,
-                scene: this.scene,
+                scene: this.group,
                 sizes: this.sizes,
             });
         });
@@ -65,15 +65,36 @@ export default class {
      * Animations.
      */
 
-    show() {
+    async show() {
         if (this.transition) {
-            this.transition.animate(this.medias[0].mesh, _ => {
+            const { src } = this.transition.mesh.program.uniforms.tMap.value.image;
+            const texture = window.TEXTURES[src];
+            const media = this.medias.find((media) => media.texture === texture);
+            const scroll = -media.bounds.left - media.bounds.width / 2 + window.innerWidth / 2;
 
-            });
+            this.update();
+
+            this.transition.animate({
+                position: { x: 0, y: media.mesh.position.y, z: 0 },
+                rotation: media.mesh.rotation,
+                scale: media.mesh.scale,
+            }, _ => {
+                media.opacity.multiplier = 1;
+
+                map(this.medias, (item) => {
+                    if (media !== item) {
+                        item.show()
+                    }
+                });
+
+                this.scroll.current = this.scroll.target = this.scroll.start = this.scroll.last = scroll;
+            })
+
+        } else {
+            map(this.medias, (media) => media.show());
         }
-
-        map(this.medias, (media) => media.show());
     }
+
 
     hide() {
         map(this.medias, (media) => media.hide());
@@ -87,12 +108,12 @@ export default class {
         this.sizes = event.sizes;
 
         this.bounds = this.galleryWrapperElement.getBoundingClientRect();
-        // this.width = this.bounds.width / window.innerWidth * this.sizes.width;
 
         this.scroll.last = this.scroll.target = 0;
-        this.scroll.limit = this.bounds.width - this.medias[0].element.clientWidth;
 
         map(this.medias, (media) => { media.onResize(event, this.scroll) });
+
+        this.scroll.limit = this.bounds.width - this.medias[0].element.clientWidth;
     }
 
     onTouchDown({ x, y }) {
@@ -128,8 +149,10 @@ export default class {
             }
         });
 
-        this.titlesElements.style[this.transformPrefix] = `translateY(${150 * selectedCollection
-            }%) translate(-50%,-270%) rotate(-90deg)`
+        this.titlesElements.style[this.transformPrefix] = `translateY(${25 * selectedCollection
+            }%) translate(-50%,-50%) rotate(-90deg)`
+
+        // this.media = this.medias[this.index]; // new line
     }
 
     /**
@@ -141,7 +164,8 @@ export default class {
 
         this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp);
 
-        this.galleryElement.style[this.transformPrefix] = `translateX(${this.scroll.current}px, 0, 0)`;
+        this.galleryElement.style[this.transformPrefix] = `translateX(${this.scroll.current}px)`;
+
         if (this.scroll.last < this.scroll.current) {
             this.scroll.direction = "right";
         } else if (this.scroll.last > this.scroll.current) {
@@ -150,7 +174,8 @@ export default class {
 
         this.scroll.last = this.scroll.current
 
-        const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length);
+        // const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length);
+        const index = Math.floor(Math.abs((this.scroll.current - (this.medias[0].bounds.width / 2)) / this.scroll.limit) * (this.medias.length - 1));
 
         if (this.index !== index) {
             this.onChange(index);
@@ -158,6 +183,8 @@ export default class {
 
         map(this.medias, (media, index) => {
             media.update(this.scroll.current, this.index);
+
+            media.mesh.rotation.z = Math.abs(GSAP.utils.mapRange(0, 1, -0.2, 0.2, index / (this.medias.length - 1))) - 0.1;
 
             media.mesh.position.y += Math.cos((media.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40;
 
@@ -169,7 +196,7 @@ export default class {
      * Destroy.
      */
     destroy() {
-        // this.scene.removeChild(this.group);
-        this.scene.removeChild(this.scene);
+        this.scene.removeChild(this.group);
+        // this.scene.removeChild(this.scene);
     }
 }

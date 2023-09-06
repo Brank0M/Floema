@@ -47,13 +47,14 @@ export default class Media {
             program: this.program,
         });
 
-        this.mesh.setParent(this.scene);
+        this.mesh.rotation.z = Math.PI * 0.01;
 
-        // this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03);
+        this.mesh.setParent(this.scene);
     }
 
     createBounds({ sizes }) {
         this.sizes = sizes;
+
         this.bounds = this.element.getBoundingClientRect();
 
         this.updateScale(sizes);
@@ -78,7 +79,9 @@ export default class Media {
     }
 
     hide() {
-
+        GSAP.to(this.program.uniforms.uAlpha, {
+            value: 0,
+        });
     }
 
     /**

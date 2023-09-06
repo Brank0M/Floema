@@ -39,11 +39,13 @@ export default class Canvas {
     });
 
     this.gl = this.renderer.gl;
+
     document.body.appendChild(this.gl.canvas);
   }
 
   createCamera() {
     this.camera = new Camera(this.gl);
+
     this.camera.position.z = 5;
   }
 
@@ -65,6 +67,7 @@ export default class Canvas {
 
   destroyHome() {
     if (!this.home) return;
+
     this.home.destroy();
     this.home = null;
   }
@@ -82,6 +85,7 @@ export default class Canvas {
 
   destroyAbout() {
     if (!this.about) return;
+
     this.about.destroy();
     this.about = null;
   }
@@ -101,6 +105,7 @@ export default class Canvas {
 
   destroyCollections() {
     if (!this.collections) return;
+
     this.collections.destroy();
     this.collections = null;
   }
@@ -120,6 +125,7 @@ export default class Canvas {
 
   destroyDetail() {
     if (!this.detail) return;
+
     this.detail.destroy();
     this.detail = null;
   }
@@ -144,12 +150,16 @@ export default class Canvas {
       this.collections.hide();
     }
 
+    if (this.detail) {
+      this.detail.hide();
+    }
+
     this.isFromCollectionsToDetail = this.template === "collections" && url.indexOf("detail") > -1;
     this.isFromDetailToCollections = this.template === "detail" && url.indexOf("collections") > -1;
 
     if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
       this.transition = new Transition({
-        collections: this.collections,
+        // collections: this.collections,
         gl: this.gl,
         scene: this.scene,
         sizes: this.sizes,
@@ -286,12 +296,8 @@ export default class Canvas {
   onTouchUp(event) {
     this.isDown = false;
 
-    const x = event.changedTouches
-      ? event.changedTouches[0].clientX
-      : event.clientX;
-    const y = event.changedTouches
-      ? event.changedTouches[0].clientY
-      : event.clientY;
+    const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
+    const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
 
     this.x.end = x;
     this.y.end = y;

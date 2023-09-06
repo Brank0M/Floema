@@ -10,11 +10,8 @@ export default class Media {
         this.scene = scene;
         this.sizes = sizes;
         this.url = url;
+
         this.geometry = new Plane(this.gl);
-    }
-
-    createTexture() {
-
     }
 
     createProgram(texture) {
@@ -42,17 +39,20 @@ export default class Media {
         this.mesh.position.y = mesh.position.y;
         this.mesh.position.z = mesh.position.z + 0.1;
 
+        this.mesh.rotation.x = mesh.rotation.x;
+        this.mesh.rotation.y = mesh.rotation.y;
+        this.mesh.rotation.z = mesh.rotation.z;
+
         this.mesh.setParent(this.scene);
     }
 
     /**
-     * Element
+     * Element 
      */
 
     setElement(element) {
         if (element.id === "collections") {
             const { index, medias } = element;
-
             const media = medias[index];
 
             this.createProgram(media.texture);
@@ -73,9 +73,7 @@ export default class Media {
      * Transition
      */
     animate(element, onComplete) {
-        const timeline = GSAP.timeline({
-            onComplete,
-        });
+        const timeline = GSAP.timeline();
 
         timeline.to(this.mesh.scale, {
             duration: 1.5,
@@ -93,8 +91,20 @@ export default class Media {
             z: element.position.z,
         }, 0);
 
+        timeline.to(this.mesh.rotation, {
+            duration: 1.5,
+            ease: "expo.inOut",
+            x: element.rotation.x,
+            y: element.rotation.y,
+            z: element.rotation.z,
+        }, 0);
+
+        timeline.call(() => {
+            onComplete();
+        });
+
         timeline.call(() => {
             this.scene.removeChild(this.mesh);
-        })
+        }, null, "+=0.2");
     }
 }
