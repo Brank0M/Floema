@@ -11,7 +11,7 @@ const logger = require("morgan");
 const methodOverride = require("method-override");
 
 const app = express();
-const port = 8005;
+const port = process.env.PORT || 8005;
 
 const Prismic = require("@prismicio/client");
 const PrismicH = require("@prismicio/helpers");
