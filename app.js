@@ -3,7 +3,6 @@ require("dotenv").config();
 // console.log(process.env.PRISMIC_ENDPOINT, process.env.PRISMIC_CLIENT_ID);
 
 const fetch = import("node-fetch");
-console.log(fetch);
 const express = require("express");
 const path = require("path");
 const errorHandler = require("errorhandler");
