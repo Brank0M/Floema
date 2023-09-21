@@ -108,7 +108,7 @@ export default class {
   }
 
   onTouchDown({ x, y }) {
-    this.speed.target = 1;
+    this.speed.target = 0.3;
     this.scrollCurrent.x = this.scroll.x;
     this.scrollCurrent.y = this.scroll.y;
   }
@@ -190,7 +190,7 @@ export default class {
       } else if (this.y.direction === "bottom") {
         const y = media.mesh.position.y - scaleY;
 
-        if (y > offsetY * 0.25) {
+        if (y > offsetY) {
           media.extra.y -= this.gallerySizes.height;
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03);
         }
