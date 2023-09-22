@@ -1,7 +1,6 @@
 .detail {
-    // @extend %cover;
-    @extend %center;
     @extend %page;
+    @extend %center;
 
     // background: $color-quicksand;
     // color: $color-quarter-spanish-white;
@@ -17,9 +16,9 @@
 
     @include media('<phone') {
         display: block;
-        margin: 0 auto 7.8rem;
-        width: 100%;
-        padding: 15rem 0 31.5rem;
+        margin: auto;
+        width: 66.1rem;
+        padding: 16rem 0;
     }
 } 
 
@@ -30,7 +29,7 @@
 
     @include media('<phone') {
         margin: 0 auto 7.8rem;
-        width: 66.1rem;
+        width: 100%;
         height: 93.4rem;
     }
 } 
@@ -45,7 +44,7 @@
     padding-left: 8.2rem;
 
     @include media('<phone') {
-        padding-left: 3rem;
+        padding-left: 0;
     }
 } 
 
@@ -71,12 +70,13 @@
 }
 
 .detail_information_highlights {
-    margin-top: 6rem;
+    margin-top: 5rem;
 } 
 
 .detail_information_highlight {
     display: flex;
     align-items: center;  
+
     &:not(:first-child) {
         margin-top: 4rem;
     }
@@ -132,10 +132,10 @@
 }
 
 .detail_information_link{
-    @extend %title-30;
-
     display: inline-block;
     margin-top: 3rem;
+
+    @extend %title-30;
 }
 
 .detail_button {
@@ -153,18 +153,18 @@
     z-index: 2;
 
     @include media('<phone') {
-        height: 13rem;
+        height: 26.8rem;
         width: 26.8rem;
-        bottom: 12rem;
+        bottom: 0rem;
     }
 }
 
-span {
-    display: inline-block;
-    // line-height: 1;
-    position: relative;
-    vertical-align: middle;
-}
+// span {
+//     display: inline-block;
+//     // line-height: 1;
+//     position: relative;
+//     vertical-align: middle;
+// }
 
 .detail_button_icon {
     @extend %cover;
