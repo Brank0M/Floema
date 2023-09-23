@@ -1,3 +1,16 @@
+// Change ???
+html, body {
+    @include media('<phone') {
+        // overflow: hidden;
+        overflow-y: scroll;
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+// Original
 .detail {
     @extend %page;
     @extend %center;
@@ -8,6 +21,8 @@
     @include media('<phone') {
         height: auto;
     }
+
+
 } 
 
 .detail_wrapper {

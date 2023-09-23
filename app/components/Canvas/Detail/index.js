@@ -5,15 +5,15 @@ import vertex from "shaders/plane-vertex.glsl";
 
 export default class Media {
     constructor({ gl, index, scene, sizes, transition }) {
+        this.id = "detail";
+        this.element = document.querySelector(".detail_media_image");
         this.gl = gl;
         this.scene = scene;
         this.sizes = sizes;
         this.transition = transition;
 
-        this.id = "detail";
 
         this.geometry = new Plane(this.gl);
-        this.element = document.querySelector(".detail_media_image");
 
         this.createTexture();
         this.createProgram();
@@ -80,9 +80,9 @@ export default class Media {
     }
 
     hide() {
-        // GSAP.to(this.program.uniforms.uAlpha, {
-        //     value: 0,
-        // });
+        GSAP.to(this.program.uniforms.uAlpha, {
+            value: 0,
+        });
     }
 
     /**

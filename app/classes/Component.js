@@ -38,12 +38,10 @@ export default class Component extends EventEmitter {
           this.elements[key] = document.querySelector(entry);
         }
       }
-
-      // console.log(this.elements[key], entry);
     });
   }
 
-  addEventListeners() {}
+  addEventListeners() { }
 
-  removeEventListeners() {}
+  removeEventListeners() { }
 }
