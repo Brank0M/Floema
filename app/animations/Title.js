@@ -30,20 +30,7 @@ export default class Title extends Animation {
       duration: 1, // added duration
     });
 
-    // each(this.elementsLines, (line, index) => {
-    //   this.timelineIn.fromTo(
-    //     line,
-    //     {
-    //       y: "100%",
-    //     },
-    //     {
-    //       delay: 0.5 + index * 0.2,
-    //       duration: 1.5,
-    //       ease: "expo.out",
-    //       y: "0%",
-    //     }
-    //   );
-    // });
+
   }
 
   animateOut() {
@@ -51,15 +38,6 @@ export default class Title extends Animation {
       autoAlpha: 0,
     });
   }
-
-  // onResize() {
-  //   // console.log(this.elementsLinesSpans);
-  //   this.elementsLines = calculate(this.elementLinesSpans);
-
-  //   // console.log(this.elementsLines);
-  // }
 }
 
-// Time: 24:31h problem with span to array. GSAP is not working!
-// Time: 34.55h Creating paragraph !!!!
-// Time: 36:56h onResize() errror
+
